@@ -90,8 +90,14 @@ env_init() {
 
 check_env() {
     if [ -d $ENV_ROOT ]; then
-        echo "info: env ready."
         source $ENV_ROOT/bin/activate
+        if [ $? -eq 0 ]; then
+            echo "info: activate env ok."
+        else
+            echo "error: activate env failed!"
+            exit 1
+        fi
+
     else
         env_init
         # echo "error: env not ready, please run '$SHELL $CMD env_init' first."
